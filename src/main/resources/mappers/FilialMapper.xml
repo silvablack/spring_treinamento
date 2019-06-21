@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.treinamento.mapper.FilialMapper">
+
+    <resultMap type="filial" id="result">
+        <id property="id" column="filial_id" />
+        <result property="descricao" column="filial_descricao" />
+        <result property="estado" column="filial_estado" />
+    </resultMap>
+
+    <select id="recuperarTodos" resultType="filial" resultMap="result">
+        SELECT * FROM filial
+    </select>
+
+    <select id="recuperar" parameterType="int" resultType="filial" resultMap="result">
+        SELECT * FROM filial
+        WHERE filial_id = #{id}
+    </select>
+
+    <insert id="inserirFilial" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO filial (filial_descricao, filial_estado) VALUES (#{descricao}, #{estado})
+    </insert>
+
+    <update id="updateFilial" parameterType="Filial">
+        UPDATE filial SET
+        filial_descricao = #{descricao},
+        filial_estado =  #{estado}
+        WHERE filial_id = #{id}
+    </update>
+
+    <delete id="excluirFilial" parameterType="int">
+        DELETE FROM filial WHERE filial_id = #{id}
+    </delete>
+
+</mapper>
