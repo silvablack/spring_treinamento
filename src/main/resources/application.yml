@@ -22,7 +22,7 @@ spring:
 ---
 spring:
   profiles:
-    active: deleteMe, produto, filial
+    active: deleteMe, produto, filial, pedidoEstoque
   datasource:
     url: jdbc:mysql://localhost:3306/treinamento_spring
     username: root

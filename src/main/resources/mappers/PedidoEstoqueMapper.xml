@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.treinamento.mapper.PedidoEstoqueMapper">
+
+    <resultMap type="pedidoEstoque" id="result">
+        <id property="id" column="pedido_estoque_id" />
+        <result property="tipo" column="pedido_estoque_tipo_pedido" />
+        <collection property="itensPedidos" ofType="ItemPedidoEstoque">
+            <id property="id" column="ipedido_estoque_id"/>
+            <result property="quantidade" column="ipedido_estoque_quantidade" />
+            <association property="produto" javaType="Produto">
+                <id property="id" column="produto_id"/>
+                <result property="descricao" column="produto_descricao"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <select id="recuperarTodos" resultType="pedidoEstoque" resultMap="result">
+        SELECT * FROM pedido_estoque AS pe
+        LEFT JOIN item_pedido_estoque AS ipe ON ipe.pedido_estoque_id = pe.pedido_estoque_id
+        LEFT JOIN produto AS p ON ipe.produto_id = p.produto_id
+    </select>
+
+    <select id="recuperar" parameterType="int" resultType="pedidoEstoque" resultMap="result">
+        SELECT * FROM pedido_estoque AS pe
+        INNER JOIN item_pedido_estoque AS ipe ON ipe.pedido_estoque_id = pe.pedido_estoque_id
+        INNER JOIN produto AS p ON ipe.produto_id = p.produto_id
+        WHERE pe.pedido_estoque_id = #{id}
+    </select>
+
+    <insert id="inserirPedidoEstoque" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pedido_estoque (pedido_estoque_tipo_pedido) VALUES (#{tipo})
+    </insert>
+
+    <update id="atualizarPedidoEstoque" parameterType="PedidoEstoque">
+        UPDATE pedido_estoque SET
+        pedido_estoque_tipo_pedido = #{tipo}
+        WHERE pedido_estoque_id = #{id}
+    </update>
+
+    <delete id="excluirPedidoEstoque" parameterType="int">
+        DELETE FROM pedido_estoque WHERE pedido_estoque_id = #{id}
+    </delete>
+
+</mapper>
