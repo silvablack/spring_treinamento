@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.treinamento.mapper.EstoqueMapper">
+
+    <resultMap type="estoque" id="result">
+        <id property="id" column="estoque_id" />
+        <result property="saldo" column="estoque_saldo" />
+        <association property="produto" javaType="Produto">
+            <id property="id" column="produto_id"/>
+            <result property="descricao" column="produto_descricao"/>
+        </association>
+        <association property="filial" javaType="Filial">
+            <id property="id" column="filial_id"/>
+            <result property="descricao" column="filial_descricao"/>
+            <result property="estado" column="filial_estado"/>
+        </association>
+    </resultMap>
+
+    <select id="recuperarTodos" resultType="estoque" resultMap="result">
+        SELECT * FROM estoque AS e
+        INNER JOIN produto AS p ON p.produto_id = e.produto_id
+        INNER JOIN filial AS f ON f.filial_id = e.filial_id
+    </select>
+
+    <select id="recuperar" parameterType="int" resultType="estoque" resultMap="result">
+        SELECT * FROM estoque AS e
+        INNER JOIN produto AS p ON p.produto_id = e.produto_id
+        INNER JOIN filial AS f ON f.filial_id = e.filial_id
+        WHERE e.estoque_id = #{id}
+    </select>
+
+    <insert id="inserirEstoque" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pedido_estoque (pedido_estoque_tipo_pedido) VALUES (#{tipo})
+    </insert>
+
+    <update id="atualizarEstoque" parameterType="Estoque">
+        UPDATE pedido_estoque SET
+        pedido_estoque_tipo_pedido = #{tipo}
+        WHERE pedido_estoque_id = #{id}
+    </update>
+
+    <delete id="excluirPedidoEstoque" parameterType="int">
+        DELETE FROM pedido_estoque WHERE pedido_estoque_id = #{id}
+    </delete>
+
+</mapper>
