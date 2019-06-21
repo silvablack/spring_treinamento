@@ -16,7 +16,7 @@ public interface FilialMapper {
 
   int inserirFilial(Filial filial);
 
-  int updateFilial(Filial filial);
+  int atualizarFilial(Filial filial);
 
   int excluirFilial(int id);
 }

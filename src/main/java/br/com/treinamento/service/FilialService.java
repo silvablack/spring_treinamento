@@ -59,7 +59,7 @@ public class FilialService implements IFilialService{
     public boolean atualizarFilial(Filial Filial) throws Exception{
         boolean response;
         try{
-            response = FilialMapper.updateFilial(Filial) > 0;
+            response = FilialMapper.atualizarFilial(Filial) > 0;
             if(response){
                 return response;
             }
