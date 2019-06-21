@@ -15,12 +15,12 @@ import java.util.List;
 public class ProdutoController {
 
     @Autowired
-    ProdutoService ProdutoService;
+    ProdutoService produtoService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity recuperarTodos(){
         try{
-            List<Produto> ps = ProdutoService.recuperarTodos();
+            List<Produto> ps = produtoService.recuperarTodos();
             return new ResponseEntity(ps, HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -30,7 +30,7 @@ public class ProdutoController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity recuperar(@PathVariable("id") int id){
         try{
-            Produto ps = ProdutoService.recuperar(id);
+            Produto ps = produtoService.recuperar(id);
             return new ResponseEntity(ps, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -40,8 +40,28 @@ public class ProdutoController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity inserirProduto(@RequestBody Produto produto){
         try{
-            ProdutoService.inserirProduto(produto);
+            produtoService.inserirProduto(produto);
             return new ResponseEntity(HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.PUT)
+    public ResponseEntity atualizarProduto(@RequestBody Produto produto){
+        try{
+            produtoService.atualizarProduto(produto);
+            return new ResponseEntity(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.DELETE)
+    public ResponseEntity excluirProduto(@RequestParam int id){
+        try{
+            produtoService.excluirProduto(id);
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

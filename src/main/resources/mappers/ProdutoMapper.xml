@@ -22,7 +22,7 @@
 
     <update id="atualizarProduto" parameterType="Produto">
         UPDATE produto SET
-        produto_descricao = #{descricao},
+        produto_descricao = #{descricao}
         WHERE produto_id = #{id}
     </update>
 
