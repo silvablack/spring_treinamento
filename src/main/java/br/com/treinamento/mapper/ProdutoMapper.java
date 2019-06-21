@@ -15,4 +15,8 @@ public interface ProdutoMapper{
   List<Produto> recuperarTodos();
 
   int inserirProduto(Produto produto);
+
+  int atualizarProduto(Produto produto);
+
+  int excluirProduto(int id);
 }

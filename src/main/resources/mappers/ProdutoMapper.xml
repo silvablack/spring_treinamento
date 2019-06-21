@@ -20,4 +20,14 @@
         INSERT INTO produto (produto_descricao) VALUES (#{descricao})
     </insert>
 
+    <update id="updateProduto" parameterType="Produto">
+        UPDATE produto SET
+        produto_descricao = #{descricao},
+        WHERE produto_id = #{id}
+    </update>
+
+    <delete id="excluirProduto" parameterType="int">
+        DELETE FROM produto WHERE produto_id = #{id}
+    </delete>
+
 </mapper>

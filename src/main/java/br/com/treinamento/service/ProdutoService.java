@@ -56,12 +56,30 @@ public class ProdutoService implements IProdutoService{
     }
 
     @Override
-    public void atualizarProduto(Produto produto) throws Exception{
-
+    public boolean atualizarProduto(Produto produto) throws Exception{
+        boolean response;
+        try{
+            response = produtoMapper.atualizarProduto(produto) > 0;
+            if(response){
+                return response;
+            }
+            throw new Exception("Error ao atualizar produto!");
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     @Override
-    public void excluirProduto(int id) throws Exception{
-
+    public boolean excluirProduto(int id) throws Exception{
+        boolean response;
+        try{
+            response = produtoMapper.excluirProduto(id) > 0;
+            if(response){
+                return response;
+            }
+            throw new Exception("Error ao excluir produto!");
+        }catch (Exception e){
+            throw e;
+        }
     }
 }
