@@ -22,7 +22,7 @@ spring:
 ---
 spring:
   profiles:
-    active: produto, filial, pedidoEstoque
+    active: produto, filial, pedidoEstoque, itemPedidoEstoque
   datasource:
     url: jdbc:mysql://localhost:3306/treinamento_spring
     username: root

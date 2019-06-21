@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.treinamento.mapper.ItemPedidoEstoqueMapper">
+
+    <resultMap type="itemPedidoEstoque" id="result">
+        <id property="id" column="ipedido_estoque_id" />
+        <result property="quantidade" column="ipedido_estoque_quantidade" />
+        <association property="produto" javaType="Produto">
+            <id property="id" column="produto_id"/>
+            <result property="descricao" column="produto_descricao"/>
+        </association>
+        <association property="pedido" javaType="PedidoEstoque">
+            <id property="id" column="pedido_estoque_id"/>
+        </association>
+    </resultMap>
+
+    <select id="recuperarTodos" resultType="itemPedidoEstoque" resultMap="result">
+        SELECT * FROM item_pedido_estoque AS ipe
+        INNER JOIN pedido_estoque AS pe ON ipe.pedido_estoque_id = pe.pedido_estoque_id
+        INNER JOIN produto AS p ON ipe.produto_id = p.produto_id
+    </select>
+
+    <select id="recuperar" parameterType="int" resultType="itemPedidoEstoque" resultMap="result">
+        SELECT * FROM item_pedido_estoque AS ipe
+        INNER JOIN pedido_estoque AS pe ON ipe.pedido_estoque_id = pe.pedido_estoque_id
+        INNER JOIN produto AS p ON ipe.produto_id = p.produto_id
+        WHERE ipe.ipedido_estoque_id = #{id}
+    </select>
+
+    <insert id="inserirItemPedidoEstoque" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO item_pedido_estoque (produto_id, pedido_estoque_id, ipedido_estoque_quantidade)
+        VALUES (#{produto}, #{pedido}, #{quantidade})
+    </insert>
+
+    <update id="atualizarItemPedidoEstoque" parameterType="PedidoEstoque">
+        UPDATE item_pedido_estoque SET
+        produto_id = #{produto},
+        pedido_estoque_id = #{pedido},
+        ipedido_quantidade = #{quantidade}
+        WHERE pedido_estoque_id = #{id}
+    </update>
+
+    <delete id="excluirItemPedidoEstoque" parameterType="int">
+        DELETE FROM item_pedido_estoque WHERE ipedido_estoque_id = #{id}
+    </delete>
+
+</mapper>
