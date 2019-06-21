@@ -1,26 +1,24 @@
 package br.com.treinamento.mapper;
 
-import br.com.treinamento.model.DeleteMe;
+import br.com.treinamento.model.Filial;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import static org.junit.Assert.assertEquals;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("default, deleteMe")
-public class DeleteMeMapperTest {
+public class FilialMapperTest {
 
   @Autowired
-  private DeleteMeMapper deleteMeMapper;
+  private FilialMapper filialMapper;
 
   @Test
   public void recuperar() {
-    DeleteMe deleteMe = deleteMeMapper.recuperar();
-    assertEquals(Long.valueOf(1), deleteMe.getId());
+    Filial filial = filialMapper.recuperar(1);
+    assertEquals(Long.valueOf(1), filial.getId());
   }
 }

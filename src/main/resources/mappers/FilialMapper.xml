@@ -21,7 +21,7 @@
         INSERT INTO filial (filial_descricao, filial_estado) VALUES (#{descricao}, #{estado})
     </insert>
 
-    <update id="updateFilial" parameterType="Filial">
+    <update id="atualizarFilial" parameterType="Filial">
         UPDATE filial SET
         filial_descricao = #{descricao},
         filial_estado =  #{estado}

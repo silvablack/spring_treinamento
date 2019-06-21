@@ -20,7 +20,7 @@
         INSERT INTO produto (produto_descricao) VALUES (#{descricao})
     </insert>
 
-    <update id="updateProduto" parameterType="Produto">
+    <update id="atualizarProduto" parameterType="Produto">
         UPDATE produto SET
         produto_descricao = #{descricao},
         WHERE produto_id = #{id}

@@ -16,12 +16,12 @@ import java.util.List;
 public class FilialController {
 
     @Autowired
-    FilialService FilialService;
+    FilialService filialService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity recuperarTodos(){
         try{
-            List<Filial> ps = FilialService.recuperarTodos();
+            List<Filial> ps = filialService.recuperarTodos();
             return new ResponseEntity(ps, HttpStatus.OK);
         }catch (Exception e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -31,7 +31,7 @@ public class FilialController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity recuperar(@PathVariable("id") int id){
         try{
-            Filial ps = FilialService.recuperar(id);
+            Filial ps = filialService.recuperar(id);
             return new ResponseEntity(ps, HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.NOT_FOUND);
@@ -41,7 +41,7 @@ public class FilialController {
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public ResponseEntity inserirFilial(@RequestBody Filial filial){
         try{
-            FilialService.inserirFilial(filial);
+            filialService.inserirFilial(filial);
             return new ResponseEntity(HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,9 +49,9 @@ public class FilialController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public ResponseEntity updateFilial(@RequestBody Filial filial){
+    public ResponseEntity atualizarFilial(@RequestBody Filial filial){
         try{
-            FilialService.atualizarFilial(filial);
+            filialService.atualizarFilial(filial);
             return new ResponseEntity(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -61,7 +61,7 @@ public class FilialController {
     @RequestMapping(value = "/", method = RequestMethod.DELETE)
     public ResponseEntity excluirFilial(@RequestParam int id){
         try{
-            FilialService.excluirFilial(id);
+            filialService.excluirFilial(id);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
