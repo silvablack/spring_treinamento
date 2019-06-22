@@ -27,15 +27,15 @@
         WHERE ipe.ipedido_estoque_id = #{id}
     </select>
 
-    <insert id="inserirItemPedidoEstoque" useGeneratedKeys="true" keyProperty="id">
+    <insert id="inserirItemPedidoEstoque" useGeneratedKeys="true" keyProperty="id" keyColumn="estoque_id">
         INSERT INTO item_pedido_estoque (produto_id, pedido_estoque_id, ipedido_estoque_quantidade)
-        VALUES (#{produto}, #{pedido}, #{quantidade})
+        VALUES (#{produto.id}, #{pedido.id}, #{quantidade})
     </insert>
 
-    <update id="atualizarItemPedidoEstoque" parameterType="PedidoEstoque">
+    <update id="atualizarItemPedidoEstoque" parameterType="PedidoEstoque" keyProperty="id" keyColumn="estoque_id">
         UPDATE item_pedido_estoque SET
-        produto_id = #{produto},
-        pedido_estoque_id = #{pedido},
+        produto_id = #{produto.id},
+        pedido_estoque_id = #{pedido.id},
         ipedido_quantidade = #{quantidade}
         WHERE pedido_estoque_id = #{id}
     </update>
