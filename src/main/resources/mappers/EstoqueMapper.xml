@@ -29,18 +29,21 @@
         WHERE e.estoque_id = #{id}
     </select>
 
-    <insert id="inserirEstoque" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO pedido_estoque (pedido_estoque_tipo_pedido) VALUES (#{tipo})
+    <insert id="inserirEstoque" useGeneratedKeys="true" keyProperty="id" keyColumn="estoque_id">
+        INSERT INTO estoque (produto_id, estoque_saldo, filial_id)
+        VALUES (#{produto.id},#{saldo},#{filial.id})
     </insert>
 
-    <update id="atualizarEstoque" parameterType="Estoque">
-        UPDATE pedido_estoque SET
-        pedido_estoque_tipo_pedido = #{tipo}
-        WHERE pedido_estoque_id = #{id}
+    <update id="atualizarEstoque" parameterType="Estoque" keyProperty="id" keyColumn="estoque_id">
+        UPDATE estoque SET
+        produto_id = #{produto.id},
+        estoque_saldo = ${saldo},
+        filial_id = #{filial.id}
+        WHERE estoque_id = #{id}
     </update>
 
-    <delete id="excluirPedidoEstoque" parameterType="int">
-        DELETE FROM pedido_estoque WHERE pedido_estoque_id = #{id}
+    <delete id="excluirEstoque" parameterType="int">
+        DELETE FROM estoque WHERE estoque_id = #{id}
     </delete>
 
 </mapper>
