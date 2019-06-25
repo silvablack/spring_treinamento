@@ -56,6 +56,21 @@ public class PedidoEstoqueService implements IPedidoEstoqueService{
     }
 
     @Override
+    public boolean inserirPedidoEstoqueItens(PedidoEstoque pedidoEstoque) throws Exception{
+        boolean response, itensResponse;
+        try{
+            response = pedidoEstoqueMapper.inserirPedidoEstoque(pedidoEstoque) > 0;
+            if(response){
+                itensResponse = pedidoEstoqueMapper.inserirPedidoEstoqueItens(pedidoEstoque) > 0;
+                return itensResponse;
+            }
+            throw new Exception("Error ao inserir Pedido Estoque!");
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    @Override
     public boolean atualizarPedidoEstoque(PedidoEstoque pedidoEstoque) throws Exception{
         boolean response;
         try{

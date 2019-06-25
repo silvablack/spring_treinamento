@@ -32,6 +32,13 @@
         INSERT INTO pedido_estoque (pedido_estoque_tipo_pedido) VALUES (#{tipo})
     </insert>
 
+    <insert id="inserirItemPedidoEstoqueItens" useGeneratedKeys="true" parameterType="PedidoEstoque" keyProperty="id" keyColumn="pedido_estoque_id">
+        INSERT INTO item_pedido_estoque (produto_id, pedido_estoque_id, ipedido_estoque_quantidade) VALUES
+        <foreach collection="itensPedidos" item="item">
+            (#{item.produto.id}, #{id}, #{item.quantidade})
+        </foreach>
+    </insert>
+
     <update id="atualizarPedidoEstoque" parameterType="PedidoEstoque">
         UPDATE pedido_estoque SET
         pedido_estoque_tipo_pedido = #{tipo}

@@ -16,6 +16,8 @@ public interface PedidoEstoqueMapper {
 
   int inserirPedidoEstoque(PedidoEstoque pedidoEstoque);
 
+  int inserirPedidoEstoqueItens(PedidoEstoque pedidoEstoque);
+
   int atualizarPedidoEstoque(PedidoEstoque pedidoEstoque);
 
   int excluirPedidoEstoque(int id);

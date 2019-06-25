@@ -47,6 +47,16 @@ public class PedidoEstoqueController {
         }
     }
 
+    @RequestMapping(value = "/itens", method = RequestMethod.POST)
+    public ResponseEntity inserirPedidoEstoqueItens(@RequestBody PedidoEstoque pedidoEstoque){
+        try{
+            pedidoEstoqueService.inserirPedidoEstoqueItens(pedidoEstoque);
+            return new ResponseEntity(HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     public ResponseEntity atualizarPedidoEstoque (@RequestBody PedidoEstoque pedidoEstoque){
         try{
